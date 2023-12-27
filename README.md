@@ -1,0 +1,2 @@
+# ubuntu_20.04_LTS_install_cmd
+ubuntu_20.04_LTS_install_cmd
