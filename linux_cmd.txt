@@ -1,0 +1,164 @@
+########################################################################################
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo apt-get update
+########################################################################################
+sudo apt install net-tools
+########################################################################################
+sudo apt install vim
+
+sudo apt install putty
+
+########################################################################################
+#chrome
+
+sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+########################################################################################
+#注音
+
+sudo apt install ibus-chewing
+
+########################################################################################
+小畫家
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo apt install kolourpaint4
+
+
+########################################################################################
+比對軟體
+
+sudo apt-get install meld
+
+########################################################################################
+auto mount Disk
+
+Disks--->Edit Mount Options
+
+/mnt/1T_disk
+
+
+########################################################################################
+#samba
+
+sudo apt-get install samba samba-common
+
+sudo vim /etc/samba/smb.conf
+
+
+[samba-share]
+comment = linux_samba on Ubuntu
+path = /mnt/1T_disk/linux_samba_folder
+security = share
+guest ok = yes
+read only = no
+browsable = yes
+create mask = 0777
+directory mask = 0777
+
+[samba-Picture]
+comment = Pictures on Ubuntu
+path = /home/flexium/Pictures
+security = share
+guest ok = yes
+read only = no
+browsable = yes
+create mask = 0777
+directory mask = 0777
+
+
+sudo service smbd restart
+
+########################################################################################
+
+sudo vim /etc/netplan/01-network-manager-all.yaml
+# Let NetworkManager manage all devices on this system
+network:
+    ethernets:
+       eno1:
+         dhcp4: no
+         addresses: [192.168.0.10/24]
+         optional: true
+         gateway4: 192.168.0.1
+         nameservers:
+           addresses:
+            [168.95.1.1,1.1.1.1]
+       
+       
+#version: 2
+#renderer: NetworkManager
+
+########################################################################################
+
+sudo apt install make
+sudo apt-get install gawk
+sudo apt-get install xterm
+sudo apt-get install autoconf
+sudo apt-get install libtool
+sudo apt-get install texinfo
+sudo apt-get install gcc-multilib
+sudo apt-get install build-essential
+sudo apt-get install zlib1g:i386
+sudo apt install libtinfo5
+
+
+sudo dpkg-reconfigure dash   
+select : NO
+
+sudo apt install qtcreator
+
+sudo apt install build-essential
+
+sudo apt install qt5-default
+
+sudo apt install qt5-doc qt5-doc-html qtbase5-doc-html qtbase5-examples
+
+
+https://www.osradar.com/install-qtcreator-on-ubuntu-20-04-18-04/
+
+
+//----------xilinx UP
+liuyisheng1211@gmail.com
+
+Flexium0606.eason
+
+
+
+//-------------vs code
+sudo apt install ./code_1.85.1-1702462158_amd64.deb
+
+
+
+//-------------microsoft-edge
+
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+
+sudo apt update
+
+sudo apt install microsoft-edge-stable
+
+
+//--------------python3-pip
+
+sudo apt install python3-pip
+
+python3 -m pip install pyserial
+
+
+//-------------------------------uninstall vivalo vitis xic
+
+cd /tools/Xilinx/./xinstall/vivado..
+cd /tools/Xilinx/./xinstall/vitis..
+cd /tools/Xilinx/./xinstall/xic
+
+sudo ./xsetup -b Uninstall
+
+
+
+
+
+
+
+
