@@ -1,0 +1,389 @@
+
+--------------------------------------------------------------      Linux CMD   ----------------------------------------------------------------------------------------------------------------------------//
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo -S sysctl --write vm.mmap_min_addr=262144;sudo sysctl fs.inotify.max_user_watches=262144 
+
+--------------------------------------------------------------     petalinux setting environment   -------------------------------------------------------------- 
+
+source /home/flexium/Petalinux_2022/settings.sh;echo $PETALINUX;cd /home/flexium/project_petalinux
+
+source /home/flexium/Petalinux_2022/settings.sh;echo $PETALINUX;
+--------------------------------------------------------------     petalinux petalinux-create BSP   -------------------------------------------------------------- 
+
+petalinux-create -t project -s /mnt/1T_disk/xilinx_tool/xilinx-kv260-starterkit-v2022.2-10141622.bsp;sudo chmod 777 -Rf xilinx-kv260-starterkit-2022.2/;cd xilinx-kv260-starterkit-2022.2
+
+--------------------------------------------------------------     petalinux hw-description    -------------------------------------------------------------- 
+
+petalinux-config --get-hw-description ./hardware/xilinx-kv260-starterkit-2022.2/
+
+--------------------------------------------------------------   orguinsal          sstate-cahce         -------------------------------------------------------------- 
+
+https://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_MAJOR_VER}/downloads
+
+--------------------------------------------------------------     sstate-cahce path flexium       -------------------------------------------------------------- 
+
+Yocto Settings → Local sstate feeds settings
+
+Yocto Settings → Add pre-mirror url 
+file:///mnt/1T_disk/downloads
+
+http://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_MAJOR_VER}/downloads 
+
+Yocto Settings → Local sstate feeds settingsfdtc
+/mnt/1T_disk/aarch64
+
+--------------------------------------------------------------  device-tree  -------------------------------------------------------------- 
+
+petalinux-build -c device-tree -x cleansstate;petalinux-build -c device-tree
+
+--------------------------------------------------------------  petalinux build build build  build build   -------------------------------------------------------------- 
+petalinux-config -c rootfs
+
+petalinux-config -c kernel
+
+petalinux-build;sync
+
+petalinux-build -x distclean;petalinux-build -x mrproper;sync;petalinux-build;sync
+
+---------------------------------------------------------------------------------------     BOOT.BIN  -------------------------------------------------------------- 
+
+// normal
+
+petalinux-package --boot --u-boot --force;sync
+
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,boot.scr,Image,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --disk-name "mmcblk1";sync
+
+
+// +++++++++++++++++++++++   copy bit
+cp ../dma.bit ./images/linux/;sync
+
+cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga dma.bit --u-boot --force;cd -;sync
+
+cp ../dma.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga dma.bit --u-boot --force;cd -;sync
+
+------------------------------------------------------------------------------------------         wic       image.ub              --------------------------------------------------------------////////
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --disk-name "mmcblk1";sync
+
+petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
+
+petalinux-package --wic --bootfiles "ramdisk.cpio.gz.u-boot boot.scr Image system.dtb"
+-------------------------------------------------------------------------------------------    copy & remove   ----------------------------------------------------------------------------------------------------------------------------//////////////////////////////////////////////
+
+sudo cp -Rf /home/flexium/linux_samba/Web/FLEXium_28Ghz_web/ /media/flexium/root/srv/www/;sync
+
+http://192.168.0.57/FLEXium_28Ghz_web/website/
+
+--------------------------------------------------------------     qtcreator   vivado     vitis -------------------------------------------------------------- 
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /usr/bin;sudo qtcreator
+
+cd /usr/bin;qtcreator
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vivado/2022.2;source settings64.sh;cd ./bin;sudo ./vivado
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2022.2;source settings64.sh;cd ./bin;sudo ./vitis
+
+
+
+
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vivado/2023.1;source settings64.sh;cd ./bin;./vivado
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis_HLS/2023.1;source settings64.sh;cd ./bin;./vitis_hls
+---------------------------------------------------------------     dtb===>dts      -----------------------------------------------------------------------
+
+dtc -O dts -I dtb -o system.dts system.dtb
+
+--------------------------------------------------------------      dts===>dts      ------------------------------------------------------------------------
+
+dtc -I dtb -O dts system.dtb -o system.dts
+
+----------------------------------------------------------------    dtb===>dts      -----------------------------------------------------------------------
+
+dtc -I dtb -O dts -f system-zynqmp-sck-kv-g-revB.dtb -o system-zynqmp-sck-kv-g-revB.dts
+
+--------------------------------------------------------------      dts===>dts      ------------------------------------------------------------------------
+
+dtc -I dtb -O dts -f zynqmp-sck-kv-g-revB.dtb -o zynqmp-sck-kv-g-revB.dts
+
+you can compile dts or dtsi files by this command:dtc -I dts -O dtb -o system.dtb system.dts
+
+you can convert dts to dtb by this command:dtc -I dts -O dtb -f system.dts -o system_0.dtb
+
+you can convert dtb to dts by this command:dtc -I dtb -O dts -f system.dtb -o system.dts
+
+dtc -I dtb -O dts -f system-top.dtb -o system-top.dts
+---------------------------------------------------------      jupyter   --------------------------------------------------------------------------------------------------------------------------------- 
+
+sudo jupyter-lab --ip=192.168.0.57 --allow-root --notebook-dir=/srv/www/FLEXium_28Ghz_web &
+
+c
+!jupyter nbconvert --to script html_test.ipynb
+cd /handle
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+
+QT Creater cross compiler tool path
+/home/flexium/petalinux_project/qt_rootfs/xilinx-kv260-starterkit-2022.1/images/linux/sdk/sysroots/x86_64-petalinux-linux/usr/bin/qmake
+/home/flexium/petalinux_project/qt_rootfs/xilinx-kv260-starterkit-2022.1/images/linux/sdk/sysroots/x86_64-petalinux-linux/usr/bin/aarch64-xilinx-linux/aarch64-xilinx-linux-gcc
+/home/flexium/petalinux_project/qt_rootfs/xilinx-kv260-starterkit-2022.1/images/linux/sdk/sysroots/x86_64-petalinux-linux/usr/bin/aarch64-xilinx-linux/aarch64-xilinx-linux-g++
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
+
+Troubleshooting steps
+
+mount -t hfsplus -o rw,remount -force /dev/mmcblk1p2 /
+
+mount -o rw /dev/mmcblk1p3 /run/media/mmcblk1p3/
+
+//--------------------------------------------------------------------------------------------
+
+ls /proc/device-tree/amba_pl\@0/
+
+ls /sys/devices/platform/amba_pl@0
+
+cat /proc/cmdline
+
+ls -lA /
+
+ls -lA /srv
+
+df -kT
+
+//---------------------------------------------------------------------------------------------
+
+petalinux-devtool search qspi
+
+petalinux-build -c som-qspi
+
+// -----------------------------------------Project path
+cd /project_petalinux/6_SPI_WEB_jupyter_HDMI/xilinx-kv260-starterkit-2022.2
+
+// -----------------------------------------download kernel source code
+petalinux-devtool modify linux-xlnx
+
+/home/flexium/project_petalinux/6_SPI_WEB_jupyter_HDMI/xilinx-kv260-starterkit-2022.2/components/yocto/workspace/sources/linux-xlnx
+
+// ------------------------------------------modify c code of spi.c
+
+// search compoment name
+petalinux-devtool search spi
+
+// ------------------------------------------build spi
+petalinux-build -c linux-xlnx
+
+petalinux-build -c linux-xlnx -x reset;petalinux-build -c linux-xlnx
+
+// ------------------------------------------git path
+cd ../xilinx-kv260-starterkit-2022.2/components/yocto/workspace/sources/linux-xlnx;ls -al 
+
+// add spi.c
+git add ./drivers/spi/spidev.c
+
+git status
+
+git log
+
+// -------------------------------------------git commit 
+git commit -s
+
+git commit --allow-empty -m "log11111"
+
+git diff 19984dd147fa7fbb7cb14b17400263ad0925c189 0b3aca811197d712348bb56d49618c20a74ebf8b
+
+// --------------------------------------------generate patch file
+cd /home/flexium/project_petalinux/8_QSPI_SD/xilinx-kv260-starterkit-2022.2/components/yocto/workspace/sources/linux-xlnx
+
+petalinux-devtool finish linux-xlnx /home/flexium/project_petalinux/8_QSPI_SD/xilinx-kv260-starterkit-2022.2/project-spec/meta-user/
+
+cat ../../../../../../xilinx-kv260-starterkit-2022.2/project-spec/meta-user/recipes-kernel/linux/linux-xlnx_%.bbappend 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+git clone https://github.com/Xilinx/linux-xlnx.git
+
+cd linux-xlnx
+
+git switch -c xlnx_rebase_v5.4_2020.2
+
+git checkout xlnx_rebase_v5.4_2020.2
+
+git checkout xlnx_rebase_v6.1_2023.1
+
+petalinux-package --bsp -p ./xilinx-kv260-starterkit-2022.2/ -o BACKUP.bsp
+
+// Export vivado infornation
+
+write_bd_tcl -no_ip_version  sd_spi_bd.tcl
+
+// -------------------------------------------------------------------
+
+echo 0 > /sys/class/fpga_manager/fpga0/flags
+
+echo system_multi_Qspi.bit > /sys/class/fpga_manager/fpga0/firmware
+
+fpgautil -b system_multi_Qspi.bit -f Full -n full
+fpgautil -o zynqmp-sck-kv-g-revB.dtbo
+// -----------------------------------------------------------------------------
+sudo dnf update
+
+fpgautil -b system_multi_Qspi.bit -o zynqmp-sck-kv-g-revB.dtbo -f Full -n full
+
+我大概列一下整個流程 :
+1. 目前應該有 build 好你新加 qspi 的 vivado design, 由此生成 xsa檔
+2. petalinux 去代新的 xsa 檔並且 build 下去
+3. 此時你 petalinux project 下面應該有 pl.dtsi , vivado project 下面也有 bitstream
+3.5. 如果是 2021或更新的版本 需要額外自己 create 一個  shell.json 的文字檔, 實際參考 https://github.com/Xilinx/kria-apps-firmware
+4. 使用 petalinux cmd 去build 出 overlay 
+petalinux-create -t apps --template fpgamanager -n "$APPNAME" --enable --srcuri "$APPPATH/$APPNAME.bit $APPPATH/$APPNAME.dtsi $APPPATH/$APPNAME.xclbin $APPPATH/shell.json"
+petalinux-build -c "$APPNAME"
+5. build 好這包 app 下面應該會有 dtbo, bit.bin, shell.json 把這個資料夾放到板子上的 /lib/firmware/xilinx/ 下
+6. 此時 xmutil listapps 應該可以看到你製作的這包 app
+7. 使用 xmutil loadapp  "$APPNAME" 去動態載入你的 app
+
+
+petalinux-create -t apps --template fpgamanager_dtg -n spioo --enable --srcuri "./hardware/xilinx-kv260-starterkit-2022.2/project_1_wrapper.xsa ./hardware/xilinx-kv260-starterkit-2022.2/shell.json"
+
+petalinux-create -t apps --template fpgamanager_dtg -n spi11 --enable --srcuri "./hardware/xilinx-kv260-starterkit-2022.2/project_1_wrapper.xsa ./images/linux/system.bit ./hardware/xilinx-kv260-starterkit-2022.2/shell.json" 
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+./bootgen -image ../2_multi_5_Qspi_jupyter_webserver_Qt5/test.bif -arch zynqmp -process_bitstream bin
+
+echo 0 > /sys/class/fpga_manager/fpga0/flags
+mkdir -p /lib/firmware
+cp /media/system_multi_Qspi.bit.bin /lib/firmware/
+echo system_multi_Qspi.bit.bin > /sys/class/fpga_manager/fpga0/firmware
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+echo enabled > /sys/devices/platform/axi/ff010000.serial/tty/ttyPS1/power/wakeup
+
+echo mem > /sys/power/state
+
+tar zcvf ../history/Beamforming_IC_engineering_mode_2023_09_22.tar.gz ../vitis_project/Beamforming_IC_engineering_mode ../vitis_project/Beamforming_IC_engineering_mode_system;cd ../history;ll;cd -
+
+//--------------------------------------------------------------------------------
+
+auto_run,/home/petalinux/0_disable_spi0.txt
+
+auto_run,/home/petalinux/0_enable_spi0.txt
+
+auto_run,/home/petalinux/p_g.txt
+
+read_reg,/dev/spidev3.0,0,61,0,0,0,0,0,1
+
+write_reg,/dev/spidev3.0,0,0,0,0,8,0,0,0,0
+
+read_reg,/dev/spidev3.0,0,61,0,0,0,0,0,1
+
+write_reg,/dev/spidev3.0,0,0,0,0,0,0,0,0,0
+
+read_reg,/dev/spidev3.0,0,61,0,0,0,0,0,0
+
+write_reg,/dev/spidev3.0,0,0,0,0,0,8,0,0,0
+
+dev_phase_gain,/dev/spidev3.0,1,15,0,0,0,0,0,0,0,0,0
+dev_phase_gain,/dev/spidev3.0,2,15,0,0,0,0,0,0,0,0,0
+dev_phase_gain,/dev/spidev3.0,34,15,0,0,0,0,0,0,0,0,0
+dev_phase_gain,/dev/spidev3.0,35,15,0,0,0,0,0,0,0,0,0
+
+dev_phase_gain,/dev/spidev3.0,34,14,0,0,0,0,0,120,250,90,30
+dev_phase_gain,/dev/spidev3.0,34,14,0,0,0,0,0,330,150,90,80
+dev_phase_gain,/dev/spidev3.0,34,15,0,0,0,0,0,250,120,90,180
+
+read_reg,/dev/spidev3.0,0,61,0,0,0,0,0,34
+
+-------------------------------------------rrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+
+dev_phase_gain,/dev/spidev3.7,34,14,0,0,0,0,0,250,120,20,90
+
+dev_phase_gain,/dev/spidev3.0,34,14,0,0,0,0,0,250,120,90,360
+
+dev_phase_gain,/dev/spidev3.0,34,14,0,0,0,0,0,250,120,90,360
+
+/include/ "system-conf.dtsi"
+/ {
+    
+};
+
+axi_dma_0&{
+        dma-channel@a0000000 {
+            compatible = "xlnx,axi-dma-mm2s-channel";
+            dma-channels = <0x0>;
+            interrupts = <0 89 4>;
+            xlnx,datawidth = <0x20>;
+            xlnx,device-id = <0x0>;
+        };
+        dma-channel@a0000030 {
+            compatible = "xlnx,axi-dma-s2mm-channel";
+            dma-channels = <0x1>;
+            interrupts = <0 90 4>;
+            xlnx,datawidth = <0x20>;
+            xlnx,device-id = <0x0>;
+        };
+};
+
+dma_proxy{
+    compatible = "xlnx,dma_proxy";  
+    dmas = <&axi_dma_0 0 &axi_dma_0 1>;
+    dma-names = "dma_proxy_tx","dma_proxy_rx";
+    dma-coherent;
+}
+
+
+sudo adduser flexium dialout
+
+dmesg | grep AXI
+
+Ea12ason11
+
+devmem 0xC0000000
+
+devmem 0xA0000000
+
+devmem 0x000000000 32 0x12345678;sync;devmem 0x000000000 
+
+devmem 0xA00000030 32 0x12345678;sync;devmem 0xA00000030 
+
+
+od -A x -tc a.txt 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+cd /mnt/1T_disk/arduino_ide;echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;./arduino-ide_2.2.1_Linux_64bit.AppImage
+
+
+cd /mnt/1T_disk/arduino_ide ./arduino-ide_2.2.1_Linux_64bit.AppImage
+
+
+cd /mnt/1T_disk/xilinx_project/vitis_project;tar zcvf ../history/DMA_sample_code_2023_11_15_gitlab.tar.gz ./DMA_sample_code ./DMA_sample_code_system/;cd ../history;ll
+
+
+cd /mnt/1T_disk/arduino_ESP32;tar zcvf ./history/Pump_Control_System_2023_12_04_all_fun_ok.tar.gz Pump_Control_System;cd ./history;sync;ll;cd -
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo chmod 777 /dev/ttyUSB0 
+
+
+
+壓力起噴水量滿序列式開關啟值單位閉設定語言繁簡中變更恢復出廠
+压力喷水量满开关启单闭设语繁简中变恢复出厂幫浦全開帮开
+
+0x58d3,0x529b,0x8d77,0x5674,0x6c34,0x91cf,0x6eff,0x5e8f,0x5217,0x5f0f,0x958b,0x95dc,0x555f,0x503c,0x55ae,0x4f4d,0x9589,0x8a2d,0x5b9a,0x8a9e,0x8a00,0x7e41,0x7c21,0x4e2d,0x8b8a,0x66f4,0x6062,0x5fa9,0x51fa,0x5ee0,0x538b,0x529b,0x55b7,0x6c34,0x91cf,0x6ee1,0x5f00,0x5173,0x542f,0x5355,0x95ed,0x8bbe,0x8bed,0x7e41,0x7b80,0x4e2d,0x53d8,0x6062,0x590d,0x51fa,0x5382
+
+,0x5e6b,0x6d66,0x5168,0x958b,0x5e2e,0x5f00
+
+bootgen -image Bitstream.bif -arch zynqmp -o ./Bitstream.bin -w
+
+liuyisheng1211@gmail.com
+
+
+Flexium0606.eason
+
+
+git config --global user.name "Easonliu1211"
+git config --global user.email "liuyisheng1211@gmail.com"
+
+
+
