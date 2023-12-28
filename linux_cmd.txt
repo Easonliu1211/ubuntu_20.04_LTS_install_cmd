@@ -156,6 +156,11 @@ cd /tools/Xilinx/./xinstall/xic
 sudo ./xsetup -b Uninstall
 
 
+//--------------------git command
+
+git config --global user.name "Easonliu1211"
+
+git config --global user.email "liuyisheng1211@gmail.com"
 
 
 
