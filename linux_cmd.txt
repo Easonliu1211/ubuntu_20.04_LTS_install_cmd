@@ -173,7 +173,7 @@ sudo ./xsetup -b Uninstall
 
 git config --global user.name "xxxxxxxx"
 
-git config --global user.email "xxxxxxxxxxx11@gmail.com"
+git config --global user.email "xxxxxxxxxxx@gmail.com"
 
 
 
