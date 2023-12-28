@@ -45,6 +45,7 @@ sudo apt-get install samba samba-common
 
 sudo vim /etc/samba/smb.conf
 
+cat /etc/samba/smb.conf
 
 [samba-share]
 comment = linux_samba on Ubuntu
@@ -145,7 +146,7 @@ sudo apt install microsoft-edge-stable
 sudo apt install python3-pip
 
 python3 -m pip install pyserial
-
+  
 
 //-------------------------------uninstall vivalo vitis xic
 
