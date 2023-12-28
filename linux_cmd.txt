@@ -92,20 +92,30 @@ network:
 ########################################################################################
 
 sudo apt install make
+
 sudo apt-get install gawk
+
 sudo apt-get install xterm
+
 sudo apt-get install autoconf
+
 sudo apt-get install libtool
+
 sudo apt-get install texinfo
+
 sudo apt-get install gcc-multilib
+
 sudo apt-get install build-essential
+
 sudo apt-get install zlib1g:i386
+
 sudo apt install libtinfo5
 
-
+########################################################################################
 sudo dpkg-reconfigure dash   
 select : NO
 
+########################################################################################
 sudo apt install qtcreator
 
 sudo apt install build-essential
@@ -117,19 +127,21 @@ sudo apt install qt5-doc qt5-doc-html qtbase5-doc-html qtbase5-examples
 
 https://www.osradar.com/install-qtcreator-on-ubuntu-20-04-18-04/
 
-
+########################################################################################
 //----------xilinx UP
 liuyisheng1211@gmail.com
 
 Flexium0606.eason
+########################################################################################
 
-
-
+########################################################################################
 //-------------vs code
+download vs code
+
 sudo apt install ./code_1.85.1-1702462158_amd64.deb
 
 
-
+########################################################################################
 //-------------microsoft-edge
 
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
@@ -140,14 +152,14 @@ sudo apt update
 
 sudo apt install microsoft-edge-stable
 
-
+########################################################################################
 //--------------python3-pip
 
 sudo apt install python3-pip
 
 python3 -m pip install pyserial
   
-
+########################################################################################
 //-------------------------------uninstall vivalo vitis xic
 
 cd /tools/Xilinx/./xinstall/vivado..
@@ -156,8 +168,8 @@ cd /tools/Xilinx/./xinstall/xic
 
 sudo ./xsetup -b Uninstall
 
-
-//--------------------git command
+########################################################################################
+//--------------------github command
 
 git config --global user.name "Easonliu1211"
 
