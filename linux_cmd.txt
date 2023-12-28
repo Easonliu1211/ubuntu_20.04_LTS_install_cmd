@@ -171,9 +171,9 @@ sudo ./xsetup -b Uninstall
 ########################################################################################
 //--------------------github command
 
-git config --global user.name "Eaxxxxxx11"
+git config --global user.name "xxxxxxxx"
 
-git config --global user.email "xxxxxliuyixxxxx11@gmail.com"
+git config --global user.email "xxxxxxxxxxx11@gmail.com"
 
 
 
