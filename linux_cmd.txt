@@ -181,4 +181,12 @@ git config --global user.email "xxxxxxxxxxx@gmail.com"
 
 
 
+########################################################################################
+//--------------------QT creator
 
+sudo apt-get install qttools5-dev-tools
+
+sudo apt-get install qttools5-dev
+
+
+vs code  : preference -> setting ->Qt intergation -> /usr/bin/designer
