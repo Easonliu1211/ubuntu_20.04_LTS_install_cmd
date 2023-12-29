@@ -1,0 +1,19 @@
+//-----------------------------------------------xilinx_project_ZCU670-----------------------------------------------------------------------
+
+
+source /home/flexium/xilinx_project_ZCU670/Petalinux_2023/settings.sh;echo $PETALINUX;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -89,7 +89,8 @@ echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2022.2;source sett
 
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vivado/2023.1;source settings64.sh;cd ./bin;./vivado
 
-echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis_HLS/2023.1;source settings64.sh;cd ./bin;./vitis_hls
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2023.1;source settings64.sh;cd ./bin;./vitis
+
 ---------------------------------------------------------------     dtb===>dts      -----------------------------------------------------------------------
 
 dtc -O dts -I dtb -o system.dts system.dtb
