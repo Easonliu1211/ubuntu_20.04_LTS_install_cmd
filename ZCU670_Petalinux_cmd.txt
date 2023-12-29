@@ -4,6 +4,31 @@
 source /home/flexium/xilinx_project_ZCU670/Petalinux_2023/settings.sh;echo $PETALINUX;
 
 
+petalinux-create -t project -s /mnt/1T_disk/xilinx_tool/xilinx-zcu670-v2023.1-05080224.bsp;sudo chmod 777 -Rf xilinx-zcu670-2023.1;cd xilinx-zcu670-2023.1
+
+
+cp /mnt/1T_disk/linux_samba_folder/Doris/ZCU670_Data/RF/RF_wrapper.xsa /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/hardware
+
+
+petalinux-config --get-hw-description /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/hardware/
+
+
+
+
+petalinux-config
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
