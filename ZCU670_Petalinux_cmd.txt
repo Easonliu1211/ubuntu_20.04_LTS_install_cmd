@@ -18,11 +18,34 @@ petalinux-config
 /mnt/1T_disk/xilinx_tool/aarch64 
 
 
+//---petalinux build build build  build build   -------------------------------------------------------------- 
+petalinux-config -c rootfs
+
+//---rootfs_config - Configuration → Image Features→[*] serial-autologin-root
 
 
 
+petalinux-config -c kernel
+
+petalinux-build;sync
+
+petalinux-build -x distclean;petalinux-build -x mrproper;sync;petalinux-build;sync
 
 
+//----copy bitstream and build BOOT.bin
+
+cp ../dma.bit ./images/linux/;sync
+
+cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga dma.bit --u-boot --force;cd -;sync
+
+cp ../dma.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga dma.bit --u-boot --force;cd -;sync
+
+//----build image wic    + image.ub   
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --disk-name "mmcblk1";sync
+
+petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
+
+petalinux-package --wic --bootfiles "ramdisk.cpio.gz.u-boot boot.scr Image system.dtb"
 
 
 
