@@ -85,8 +85,6 @@ echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2022.2;source sett
 
 
 
-
-
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vivado/2023.1;source settings64.sh;cd ./bin;./vivado
 
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2023.1;source settings64.sh;cd ./bin;./vitis
@@ -118,7 +116,7 @@ dtc -I dtb -O dts -f system-top.dtb -o system-top.dts
 
 sudo jupyter-lab --ip=192.168.0.57 --allow-root --notebook-dir=/srv/www/FLEXium_28Ghz_web &
 
-c
+
 !jupyter nbconvert --to script html_test.ipynb
 cd /handle
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
@@ -384,7 +382,7 @@ Flexium0606.eason
 
 
 git config --global user.name "Easonliu1211"
+
 git config --global user.email "liuyisheng1211@gmail.com"
 
-
-
+git config --list
