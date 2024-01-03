@@ -2,11 +2,7 @@
 
 source /home/flexium/xilinx_project_ZCU670/Petalinux_2023/settings.sh;echo $PETALINUX;cd /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/
 
-
-
 cd /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/
-
-
 
 petalinux-create -t project -s /mnt/1T_disk/xilinx_tool/xilinx-zcu670-v2023.1-05080224.bsp;sudo chmod 777 -Rf xilinx-zcu670-2023.1;cd xilinx-zcu670-2023.1
 
@@ -18,11 +14,9 @@ petalinux-config
 
 │file:///mnt/1T_disk/xilinx_tool/downloads  
 
-
 //-------------------------------Yocto Settings → Local sstate feeds settings
 
 /mnt/1T_disk/xilinx_tool/aarch64 
-
 
 //-------------------------------petalinux build build build  build build   -------------------------------------------------------------- 
 petalinux-config -c rootfs
@@ -34,6 +28,11 @@ petalinux-config -c kernel
 petalinux-build;sync
 
 petalinux-build -x distclean;petalinux-build -x mrproper;sync;petalinux-build;sync
+
+
+petalinux-package --boot --u-boot --force;sync
+
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,boot.scr,Image,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --disk-name "mmcblk1";sync
 
 
 //-------------------------------copy bitstream and build BOOT.bin
