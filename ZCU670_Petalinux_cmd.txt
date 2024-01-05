@@ -47,10 +47,13 @@ petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.
 
 petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
 
+---------------------------------------------------------------     dtb===>dts      -----------------------------------------------------------------------
 
+dtc -O dts -I dtb -o system.dts system.dtb;cat system.dts
 
+--------------------------------------------------------------      dtb===>dts      ------------------------------------------------------------------------
 
-
+dtc -I dtb -O dts system.dtb -o system.dts
 
 
 
