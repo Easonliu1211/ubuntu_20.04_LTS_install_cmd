@@ -190,3 +190,8 @@ sudo apt-get install qttools5-dev
 
 
 vs code  : preference -> setting ->Qt intergation -> /usr/bin/designer
+
+
+
+//--------------------device-tree-compiler
+sudo snap install device-tree-compiler
