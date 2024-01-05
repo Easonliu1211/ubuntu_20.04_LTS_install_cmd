@@ -29,33 +29,25 @@ petalinux-build;sync
 
 petalinux-build -x distclean;petalinux-build -x mrproper;sync;petalinux-build;sync
 
-
 petalinux-package --boot --u-boot --force;sync
 
-petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,boot.scr,Image,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --disk-name "mmcblk1";sync
-
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,boot.scr,Image,system.dtb" --disk-name "mmcblk1";sync
 
 //-------------------------------copy bitstream and build BOOT.bin
 
-cp ../dma.bit ./images/linux/;sync
+cp ../RF_wrapper.bit ./images/linux/;sync
 
-cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga dma.bit --u-boot --force;cd -;sync
+cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga RF_wrapper.bit --u-boot --force;cd -;sync
 
-cp ../dma.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga dma.bit --u-boot --force;cd -;sync
+cp ../RF_wrapper.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga RF_wrapper.bit --u-boot --force;cd -;sync
 
 //-------------------------------build image wic    + image.ub   
-petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --disk-name "mmcblk1";sync
+
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb" --disk-name "mmcblk1";sync
 
 petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
 
 petalinux-package --wic --bootfiles "ramdisk.cpio.gz.u-boot boot.scr Image system.dtb"
-
-
-
-
-
-
-
 
 
 

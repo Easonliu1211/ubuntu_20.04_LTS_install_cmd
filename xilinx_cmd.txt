@@ -83,8 +83,6 @@ echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vivado/2022.2;source set
 
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2022.2;source settings64.sh;cd ./bin;sudo ./vitis
 
-
-
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vivado/2023.1;source settings64.sh;cd ./bin;./vivado
 
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;cd /tools/Xilinx/Vitis/2023.1;source settings64.sh;cd ./bin;./vitis
@@ -377,9 +375,7 @@ bootgen -image Bitstream.bif -arch zynqmp -o ./Bitstream.bin -w
 
 liuyisheng1211@gmail.com
 
-
 Flexium0606.eason
-
 
 git config --global user.name "Easonliu1211"
 
