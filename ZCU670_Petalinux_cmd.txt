@@ -47,7 +47,6 @@ petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.
 
 petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
 
-petalinux-package --wic --bootfiles "ramdisk.cpio.gz.u-boot boot.scr Image system.dtb"
 
 
 
