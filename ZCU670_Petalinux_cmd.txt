@@ -56,4 +56,3 @@ dtc -O dts -I dtb -o system.dts system.dtb;cat system.dts
 dtc -I dtb -O dts system.dtb -o system.dts
 
 
-https://www.twse.com.tw/exchangeReport/MI_INDEX?response=csv&date=20240104&type=ALL
