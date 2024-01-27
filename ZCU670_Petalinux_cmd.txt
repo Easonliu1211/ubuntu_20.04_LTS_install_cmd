@@ -61,16 +61,6 @@ dtc -O dts -I dtb -o system.dts system.dtb;cat system.dts
 dtc -I dtb -O dts system.dtb -o system.dts
 
 
-101011001100
-
-0000101011
-0000001100
-
-
-
-
-
-
 
 
 
