@@ -1,3 +1,8 @@
+
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo -S sysctl --write vm.mmap_min_addr=262144;sudo sysctl fs.inotify.max_user_watches=262144 
+
+
 //-----------------------------------------------xilinx_project_ZCU670-----------------------------------------------------------------------
 
 source /home/flexium/xilinx_project_ZCU670/Petalinux_2023/settings.sh;echo $PETALINUX;cd /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/
@@ -31,7 +36,7 @@ petalinux-build -x distclean;petalinux-build -x mrproper;sync;petalinux-build;sy
 
 petalinux-package --boot --u-boot --force;sync
 
-petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,boot.scr,Image,system.dtb" --disk-name "mmcblk1";sync
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb" --disk-name "mmcblk1";sync
 
 //-------------------------------copy bitstream and build BOOT.bin
 
@@ -54,5 +59,39 @@ dtc -O dts -I dtb -o system.dts system.dtb;cat system.dts
 --------------------------------------------------------------      dts===>dtb      ------------------------------------------------------------------------
 
 dtc -I dtb -O dts system.dtb -o system.dts
+
+
+101011001100
+
+0000101011
+0000001100
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
