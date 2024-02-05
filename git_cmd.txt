@@ -45,3 +45,16 @@ vim .gitignore
 git rm -r --cached .;git add .
 
 git commit -m 'update .gitignore'
+
+
+
+//----------------------------------------------------------------------------------------  commit sequence  -----------------------------------------------------------------------------------------------------------------------------------------------
+
+git status
+
+git rm -r --cached .;git add .
+
+git commit -m 'update log'
+
+git push origin main
+
