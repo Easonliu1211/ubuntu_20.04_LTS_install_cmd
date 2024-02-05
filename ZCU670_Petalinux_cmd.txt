@@ -3,15 +3,15 @@
 echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo -S sysctl --write vm.mmap_min_addr=262144;sudo sysctl fs.inotify.max_user_watches=262144 
 
 
-//-----------------------------------------------xilinx_project_ZCU670-----------------------------------------------------------------------
+//-----------------------------------------------1_ZCU670_project/-----------------------------------------------------------------------
 
-source /home/flexium/xilinx_project_ZCU670/Petalinux_2023/settings.sh;echo $PETALINUX;cd /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/
+source /home/flexium/1_ZCU670_project/Petalinux_2023/settings.sh;echo $PETALINUX;cd /home/flexium/1_ZCU670_project/1_ZCU670/xilinx-zcu670-2023.1/
 
-cd /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/
+cd /home/flexium/1_ZCU670_project/0_DMA/xilinx-zcu670-2023.1
 
 petalinux-create -t project -s /mnt/1T_disk/xilinx_tool/xilinx-zcu670-v2023.1-05080224.bsp;sudo chmod 777 -Rf xilinx-zcu670-2023.1;cd xilinx-zcu670-2023.1
 
-petalinux-config --get-hw-description /home/flexium/xilinx_project_ZCU670/1_ZCU670/xilinx-zcu670-2023.1/hardware/
+petalinux-config --get-hw-description ./hardware/
 
 petalinux-config
 
@@ -48,9 +48,14 @@ cp ../RF_wrapper.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package -
 
 //-------------------------------build image wic    + image.ub   
 
-petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,BOOT.BIN" --disk-name "mmcblk1";sync
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,BOOT.BIN" ;sync
 
 petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
+
+
+//--------------------------------------------------------------   rootfs-file   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+cd ./images/linux/;petalinux-package --wic --bootfiles "BOOT.BIN,ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --rootfs-file "rootfs.tar.gz";sync;cd -
 
 ---------------------------------------------------------------     dtb===>dts      -----------------------------------------------------------------------
 
@@ -64,6 +69,17 @@ dtc -I dtb -O dts system.dtb -o system.dts
 
 
 
+PLM : 它负责启动和运行时间管理，包括器件的平台管理、错误管理、部分重配置以及子系统重新启动。PLM 可重新加载镜像
+
+U-Boot : U-Boot 充当辅助启动加载器。在 PLM 交接后，U-Boot 会将 Linux 加载到 Arm A72 APU 上并基于开发板配置对处理器系统中的其余外设进行配置。
+
+
+PLM 可加载将由 APU 执行的 ATF，ATF 将在 EL3 中保持运行并等待服务请求。PLM 还可将 U-Boot 加载到将由 APU 执行的 DDR 中，U-Boot 将在 APU 上以 SMP 模式加载 Linux 操作系统。
+
+
+The boot image can be put into Flash or SD card. When you power on the board, it can boot from the boot image. A boot image usually contains a first stage boot loader image, FPGA bitstream, PMU firmware, TF-A, and U-Boot.
+
+An MCS image for Zynq UltraScale+ MPSoC usually contains a First Stage Boot Loader Image (FSBL), FPGA bitstream, PMU firmware, TF-A, U-Boot, DTB, and Kernel Fit image (optional).
 
 
 
@@ -73,15 +89,5 @@ dtc -I dtb -O dts system.dtb -o system.dts
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+https://support.xilinx.com/s/question/0D54U00006uvPFuSAM/petalinux-20231-random-error-with-genmachineconf?language=en_US
 

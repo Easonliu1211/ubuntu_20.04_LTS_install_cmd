@@ -1,0 +1,96 @@
+
+
+
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo -S sysctl --write vm.mmap_min_addr=262144;sudo sysctl fs.inotify.max_user_watches=262144 
+
+
+source /home/flexium/0_KV260_project/Petalinux_2023_02/settings.sh;echo $PETALINUX
+
+//---------------------------------------------------           create                 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+petalinux-create -t project -s /home/flexium/0_KV260_project/xilinx-kv260-starterkit-v2023.2-10140544.bsp;sudo chmod 777 -Rf xilinx-kv260-starterkit-2023.1/;cd xilinx-kv260-starterkit-2023.2/
+
+//---------------------------------------------------           get-hw                 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+petalinux-config --get-hw-description ./hardware/xilinx-kv260-starterkit-2023.2/
+
+
+petalinux-config -c rootfs
+
+
+petalinux-config -c kernel
+
+
+//---------------------------------------------------     Yocto Settings → Add pre-mirror url      ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+petalinux-config
+
+file:///mnt/1T_disk/xilinx_tool/downloads
+
+//----------------------------------------------------      Yocto Settings → Local sstate feeds settings     -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/mnt/1T_disk/xilinx_tool/2023_02_arrch64_download/aarch64
+
+petalinux-build;sync
+
+petalinux-build -x distclean;petalinux-build -x mrproper;sync;petalinux-build;sync
+
+--------------------------------------------------------------    build          device-tree                   ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+petalinux-build -c device-tree -x cleansstate;petalinux-build -c device-tree
+
+-------------------------------------------------------------             copy bit         --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cp ../system_multi_Qspi.bit ./images/linux/;sync
+
+cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga system_multi_Qspi.bit --u-boot --force;cd -;sync
+
+cp ../system_multi_Qspi.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga system_multi_Qspi.bit --u-boot --force;cd -;sync
+
+------------------------------------------------------------------     WIC         ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb";sync
+
+
+//--------------------------------------------------------------   rootfs-file   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+cd ./images/linux/;petalinux-package --wic --bootfiles "BOOT.BIN,ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --rootfs-file "rootfs.tar.gz";sync;cd -
+
+---------------------------------------------------------------     dtb===>dts     --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dtc -O dts -I dtb -o system.dts system.dtb;cat system.dts
+
+--------------------------------------------------------------      dts===>dtb      --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dtc -I dtb -O dts system.dtb -o system.dts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------
+I have a question about Peta Linux of zcu670
+
+How can I generate an image of the ZCU670 using the wic command?
+
+I used this wic command : petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,BOOT.BIN" --disk-name "mmcblk1";sync
+
+This is boot message.
+
+
+
+
+
