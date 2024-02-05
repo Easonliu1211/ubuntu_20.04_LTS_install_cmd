@@ -52,7 +52,9 @@ git commit -m 'update .gitignore'
 
 git status
 
-git rm -r --cached .;git add .
+git rm -r --cached .
+
+git add .
 
 git commit -m 'update log'
 
