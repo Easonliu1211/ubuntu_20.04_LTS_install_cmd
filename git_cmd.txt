@@ -41,7 +41,9 @@ git push origin test_name
 vim .gitignore
 # modify .gitignore
 
-git rm -r --cached .;git add .
+git rm -rf --cached .
+
+git add .
 
 git commit -m 'update .gitignore'
 
