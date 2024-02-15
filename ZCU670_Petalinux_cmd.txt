@@ -53,7 +53,7 @@ petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.
 petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
 
 
-//--------------------------------------------------------------   rootfs-file   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------  bootfiles & rootfs-file   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 cd ./images/linux/;petalinux-package --wic --bootfiles "BOOT.BIN,ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --rootfs-file "rootfs.tar.gz";sync;cd -
 
@@ -64,10 +64,6 @@ dtc -O dts -I dtb -o system.dts system.dtb;cat system.dts
 --------------------------------------------------------------      dts===>dtb      ------------------------------------------------------------------------
 
 dtc -I dtb -O dts system.dtb -o system.dts
-
-
-
-
 
 PLM : 它负责启动和运行时间管理，包括器件的平台管理、错误管理、部分重配置以及子系统重新启动。PLM 可重新加载镜像
 
@@ -90,4 +86,65 @@ An MCS image for Zynq UltraScale+ MPSoC usually contains a First Stage Boot Load
 
 
 https://support.xilinx.com/s/question/0D54U00006uvPFuSAM/petalinux-20231-random-error-with-genmachineconf?language=en_US
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

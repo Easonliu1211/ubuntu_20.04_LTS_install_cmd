@@ -67,7 +67,6 @@ browsable = yes
 create mask = 0777
 directory mask = 0777
 
-
 sudo service smbd restart
 
 ########################################################################################
@@ -91,6 +90,8 @@ network:
 
 ########################################################################################
 
+
+
 sudo apt install make
 
 sudo apt-get install gawk
@@ -111,7 +112,7 @@ sudo apt-get install zlib1g:i386
 
 sudo apt install libtinfo5
 
-apt-get install libncurses-dev
+sudo apt-get install libncurses-dev
 
 ########################################################################################
 sudo dpkg-reconfigure dash   
@@ -142,7 +143,6 @@ download vs code
 
 sudo apt install ./code_1.85.1-1702462158_amd64.deb
 
-
 ########################################################################################
 //-------------microsoft-edge
 
@@ -160,7 +160,7 @@ sudo apt install microsoft-edge-stable
 sudo apt install python3-pip
 
 python3 -m pip install pyserial
-  
+
 ########################################################################################
 //-------------------------------uninstall vivalo vitis xic
 
