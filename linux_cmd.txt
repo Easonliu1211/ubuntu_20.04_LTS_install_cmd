@@ -114,6 +114,10 @@ sudo apt install libtinfo5
 
 sudo apt-get install libncurses-dev
 
+sudo apt install python3-pip
+
+sudo apt-get install python-pandas python3-pandas
+
 ########################################################################################
 sudo dpkg-reconfigure dash   
 select : NO
@@ -139,7 +143,7 @@ Flexium0606.eason
 
 ########################################################################################
 //-------------vs code
-download vs code
+download vs code form microsoft
 
 sudo apt install ./code_1.85.1-1702462158_amd64.deb
 
