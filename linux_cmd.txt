@@ -116,7 +116,7 @@ sudo apt-get install libncurses-dev
 
 sudo apt install python3-pip
 
-sudo apt-get install python-pandas python3-pandas
+sudo apt-get install python3-pandas
 
 ########################################################################################
 sudo dpkg-reconfigure dash   
