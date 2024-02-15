@@ -352,8 +352,6 @@ od -A x -tc a.txt
 cd /mnt/1T_disk/arduino_ide;echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;./arduino-ide_2.3.0_Linux_64bit.AppImage
 
 
-
-
 cd /mnt/1T_disk/xilinx_project/vitis_project;tar zcvf ../history/DMA_sample_code_2023_11_15_gitlab.tar.gz ./DMA_sample_code ./DMA_sample_code_system/;cd ../history;ll
 
 
