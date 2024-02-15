@@ -116,6 +116,8 @@ sudo apt install python3-pip
 
 sudo apt-get install python3-pandas
 
+
+TJpg_Decoder
 ########################################################################################
 sudo dpkg-reconfigure dash   
 select : NO
