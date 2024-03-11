@@ -327,7 +327,6 @@ dma_proxy{
     dma-coherent;
 }
 
-
 sudo adduser flexium dialout
 
 dmesg | grep AXI
@@ -342,14 +341,12 @@ devmem 0x000000000 32 0x12345678;sync;devmem 0x000000000
 
 devmem 0xA00000030 32 0x12345678;sync;devmem 0xA00000030 
 
-
 od -A x -tc a.txt 
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-cd /mnt/1T_disk/arduino_ide;echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;./arduino-ide_2.3.0_Linux_64bit.AppImage
+cd /mnt/1T_disk/arduino_ide;echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;./arduino-ide_2.3.2_Linux_64bit.AppImage
 
 
 cd /mnt/1T_disk/xilinx_project/vitis_project;tar zcvf ../history/DMA_sample_code_2023_11_15_gitlab.tar.gz ./DMA_sample_code ./DMA_sample_code_system/;cd ../history;ll
@@ -357,7 +354,9 @@ cd /mnt/1T_disk/xilinx_project/vitis_project;tar zcvf ../history/DMA_sample_code
 
 cd /mnt/1T_disk/arduino_ESP32;tar zcvf ./history/Pump_Control_System_2023_12_04_all_fun_ok.tar.gz Pump_Control_System;cd ./history;sync;ll;cd -
 
-echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo chmod 777 /dev/ttyUSB0 
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo chmod 777 /dev/ttyUSB 
+echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo chmod 777 /dev/ttyUSB*;ls -al /dev//ttyUSB* 
+/mnt/1T_disk/arduino_ide
 
 
 
@@ -398,7 +397,8 @@ git config --list
 
 
 
-
+const char* ssid     = "Zyxel_A6F5";
+const char* password = "LQXVACLuR2Wgt";
 
 
 

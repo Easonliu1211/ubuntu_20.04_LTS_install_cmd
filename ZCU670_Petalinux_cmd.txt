@@ -5,9 +5,7 @@ echo '1q2w3e' | sudo -S <<< 1q2w3e pwd;sudo -S sysctl --write vm.mmap_min_addr=2
 
 //-----------------------------------------------1_ZCU670_project/-----------------------------------------------------------------------
 
-source /home/flexium/1_ZCU670_project/Petalinux_2023/settings.sh;echo $PETALINUX;cd /home/flexium/1_ZCU670_project/1_ZCU670/xilinx-zcu670-2023.1/
-
-cd /home/flexium/1_ZCU670_project/0_DMA/xilinx-zcu670-2023.1
+source /home/flexium/petalinux/2023.1/settings.sh;echo $PETALINUX
 
 petalinux-create -t project -s /mnt/1T_disk/xilinx_tool/xilinx-zcu670-v2023.1-05080224.bsp;sudo chmod 777 -Rf xilinx-zcu670-2023.1;cd xilinx-zcu670-2023.1
 
@@ -17,11 +15,11 @@ petalinux-config
 
 //-------------------------------Yocto Settings → Add pre-mirror url
 
-│file:///mnt/1T_disk/xilinx_tool/downloads  
+file:///mnt/1T_disk/xilinx_tool/2023_01_downloads_arrch64/downloads
 
 //-------------------------------Yocto Settings → Local sstate feeds settings
 
-/mnt/1T_disk/xilinx_tool/aarch64 
+/mnt/1T_disk/xilinx_tool/2023_01_downloads_arrch64/aarch64
 
 //-------------------------------petalinux build build build  build build   -------------------------------------------------------------- 
 petalinux-config -c rootfs
@@ -29,6 +27,8 @@ petalinux-config -c rootfs
 //---rootfs_config - Configuration → Image Features→[*] serial-autologin-root
 
 petalinux-config -c kernel
+
+//
 
 petalinux-build;sync
 
@@ -40,22 +40,15 @@ petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.
 
 //-------------------------------copy bitstream and build BOOT.bin
 
-cp ../RF_wrapper.bit ./images/linux/;sync
+cp ../../RF_wrapper.bit ./images/linux/;sync
 
 cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga RF_wrapper.bit --u-boot --force;cd -;sync
 
 cp ../RF_wrapper.bit ./images/linux/;sync;cd ./images/linux/;petalinux-package --boot --fsbl zynqmp_fsbl.elf --fpga RF_wrapper.bit --u-boot --force;cd -;sync
 
-//-------------------------------build image wic    + image.ub   
-
-petalinux-package --wic --images-dir images/linux/ --bootfiles "ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,BOOT.BIN" ;sync
-
-petalinux-package --wic --images-dir images/linux/ --bootfiles "boot.scr,image.ub" --disk-name "mmcblk1";sync
-
-
 //--------------------------------------------------------------  bootfiles & rootfs-file   -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-cd ./images/linux/;petalinux-package --wic --bootfiles "BOOT.BIN,ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb,system-zynqmp-sck-kv-g-revB.dtb" --rootfs-file "rootfs.tar.gz";sync;cd -
+cd ./images/linux/;petalinux-package --wic --bootfiles "BOOT.BIN,ramdisk.cpio.gz.u-boot,rootfs.cpio.gz.u-boot,boot.scr,Image,image.ub,system.dtb" --rootfs-file "rootfs.tar.gz";sync;cd -
 
 ---------------------------------------------------------------     dtb===>dts      -----------------------------------------------------------------------
 
@@ -78,34 +71,61 @@ The boot image can be put into Flash or SD card. When you power on the board, it
 An MCS image for Zynq UltraScale+ MPSoC usually contains a First Stage Boot Loader Image (FSBL), FPGA bitstream, PMU firmware, TF-A, U-Boot, DTB, and Kernel Fit image (optional).
 
 
-
-
-
-
-
-
-
 https://support.xilinx.com/s/question/0D54U00006uvPFuSAM/petalinux-20231-random-error-with-genmachineconf?language=en_US
 
 
 
+jpp
 
 
 
 
+&axi_dma_0{
+        dma-channel@a0000000 {
+            compatible = "xlnx,axi-dma-mm2s-channel";
+            dma-channels = <0x1>;
+            interrupts = <0 89 4>;
+            xlnx,datawidth = <0x20>;
+            xlnx,device-id = <0x0>;
+            xlnx,include-dre ;
+        };
+        dma-channel@a0000030 {
+            compatible = "xlnx,axi-dma-s2mm-channel";
+            dma-channels = <0x1>;
+            interrupts = <0 90 4>;
+            xlnx,datawidth = <0x20>;
+            xlnx,device-id = <0x0>;
+            xlnx,include-dre ;
+        };
+};
 
 
 
+&spi0 {
+  is-decoded-cs = <0>;
+  num-cs = <3>;
+  status = "okay";
+  spidev@0 {
+   compatible = "rohm,dh2228fv";
+   spi-max-frequency = <1000000>;
+   reg = <0>;
+  };
 
+  spidev@1 {
+   compatible = "rohm,dh2228fv";
+   spi-max-frequency = <1000000>;
+   reg = <1>;
+  };
 
+  spidev@2 {
+   compatible = "rohm,dh2228fv";
+   spi-max-frequency = <1000000>;
+   reg = <2>;
+  };
 
+};
 
-
-
-
-
-
-
+ 
 
 
 
